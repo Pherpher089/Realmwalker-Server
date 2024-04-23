@@ -1,3 +1,10 @@
+const pg = require('pg');
+
+// Fix issue with self-signed certificates in Heroku
+pg.defaults.ssl = process.env.NODE_ENV === 'production' ? {
+  rejectUnauthorized: false,
+} : false;
+
 module.exports = {
   development: {
     client: "sqlite3",
