@@ -11,7 +11,13 @@ async function getVersion() {
 
 async function updateVersion(versionInfo) {
     const newVersion = { id: 0, version: versionInfo }
-    return await db('version')
+    const updatedVersion = await db('version')
         .where('id', 1)
         .update(newVersion);
+    if (updatedVersion) {
+        return updatedVersion
+    } else {
+        return await db('version')
+            .add(newVersion);
+    }
 }
