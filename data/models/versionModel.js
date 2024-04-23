@@ -20,5 +20,5 @@ async function updateVersion(versionInfo) {
 async function addVersion(versionInfo) {
     const newVersion = { version: versionInfo }
     return await db('version')
-        .update(newVersion);
+        .add(newVersion);
 }
