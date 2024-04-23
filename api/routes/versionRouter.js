@@ -16,4 +16,12 @@ router.post("/update", async (req, res) => {
         res.status(500).json(error);
     }
 });
+router.post("/add", async (req, res) => {
+    try {
+        let newVersion = await Version.addVersion(req.body.version);
+        res.status(200).json(newVersion);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
 module.exports = router;

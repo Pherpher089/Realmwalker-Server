@@ -2,7 +2,8 @@ const db = require("../knexConfig.js");
 
 module.exports = {
     getVersion,
-    updateVersion
+    updateVersion,
+    addVersion
 }
 
 async function getVersion() {
@@ -11,13 +12,13 @@ async function getVersion() {
 
 async function updateVersion(versionInfo) {
     const newVersion = { id: 0, version: versionInfo }
-    const updatedVersion = await db('version')
+    return await db('version')
         .where('id', 0)
         .update(newVersion);
-    if (updatedVersion) {
-        return updatedVersion
-    } else {
-        return await db('version')
-            .add(newVersion);
-    }
+}
+
+async function addVersion(versionInfo) {
+    const newVersion = { version: versionInfo }
+    return await db('version')
+        .update(newVersion);
 }
